@@ -10,4 +10,16 @@ describe('filters/name', function () {
       123
     ]);
   });
+  it('number array key', function () {
+    expect(traverse([123, 456], name(0)))
+      .deep.equal([
+      123
+    ]);
+  });
+  it('string array key', function () {
+    expect(traverse([123, 456], name('0')))
+      .deep.equal([
+      123
+    ]);
+  });
 });
