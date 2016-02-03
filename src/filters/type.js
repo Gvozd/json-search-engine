@@ -1,6 +1,6 @@
 export default function type(typeName) {
   'use strict';
-  switch(typeName) {
+  switch (typeName) {
     case 'array':
       return node => Array.isArray(node);
     case 'null':
@@ -9,4 +9,3 @@ export default function type(typeName) {
       return node => typeName === typeof node;
   }
 };
-

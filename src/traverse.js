@@ -1,22 +1,27 @@
 export default function traverse(object, filter) {
   'use strict';
-  var path = [object],
-    result = [],
-    curElement,
-    keys,
-    i;
+  var path = [{node: object, key: ''}],
+    result = []
+    ;
   while (path.length) {
-    curElement = path.pop();
-    if (filter(curElement)) {
-      result.push(curElement);
+    let curElement = path.pop(),
+      curNode = curElement.node,
+      curKey = curElement.key
+      ;
+    if (filter(curNode, curKey)) {
+      result.push(curNode);
     }
-    if (!curElement || 'object' !== typeof curElement) {
+    if (!curNode || 'object' !== typeof curNode) {
       continue;
     }
-    keys = Object.keys(curElement)
+    let keys = Object.keys(curNode)
       .sort((a, b) => a.localeCompare(b));
-    for (i = keys.length - 1; i >= 0; i--) {
-      path.push(curElement[keys[i]]);
+    for (let i = keys.length - 1; i >= 0; i--) {
+      let key = keys[i];
+      path.push({
+        node: curNode[key],
+        key: key
+      });
     }
   }
   return result;
