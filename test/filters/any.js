@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import traverse from '../../src/traverse';
 import any from '../../src/filters/any';
 
-describe('any', function () {
+describe('filters/any', function () {
   'use strict';
   it('array', function () {
     var func = function () {

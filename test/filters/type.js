@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import traverse from '../../src/traverse';
 import type from '../../src/filters/type';
 
-describe('type', function () {
+describe('filters/type', function () {
   'use strict';
   it('array', function () {
     expect(traverse({a: [], b: [1, 2], c: {}}, type('array')))
