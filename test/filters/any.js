@@ -5,7 +5,8 @@ import any from '../../src/filters/any';
 describe('any', function () {
   'use strict';
   it('array', function () {
-    var func  = function () {};
+    var func = function () {
+    };
     expect(traverse(['foo', 123, NaN, undefined, null, {}, func], any()))
       .deep.equal([
       ['foo', 123, NaN, undefined, null, {}, func],
