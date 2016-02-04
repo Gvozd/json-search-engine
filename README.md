@@ -1,6 +1,7 @@
 # json-search-engine
 
 Node.js module: engine for **super-fast** search in JSON-like object  
+
  [![Build Status](https://travis-ci.org/Gvozd/json-search-engine.svg)](https://travis-ci.org/Gvozd/json-search-engine)  
  [![NPM](https://nodei.co/npm-dl/json-search-engine.png?months=1)](https://nodei.co/npm/json-search-engine/)  
 
