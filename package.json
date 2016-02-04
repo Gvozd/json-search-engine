@@ -1,6 +1,6 @@
 {
   "name": "json-search-engine",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "scripts": {
     "prepublish": "npm run lint && npm run test",
     "test": "mocha ./test/**/*.js",
