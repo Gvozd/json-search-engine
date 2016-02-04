@@ -1,6 +1,7 @@
 {
   "name": "json-search-engine",
-  "version": "0.0.11",
+  "version": "0.0.12",
+  "description": "internal module for super-fast search in JSON-like object",
   "scripts": {
     "prepublish": "npm run lint && npm run test",
     "test": "mocha ./test/**/*.js",
