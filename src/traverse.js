@@ -1,15 +1,18 @@
-export default function traverse(object, filter) {
+export default function traverse(object, mainFilter) {
   'use strict';
-  var path = [{node: object, key: ''}],
+  var path = [{node: object, key: '', next: mainFilter}],
     result = []
     ;
   while (path.length) {
     let curElement = path.pop(),
-      curNode = curElement.node,
-      curKey = curElement.key
+      {node: curNode, key: curKey, next: curFilter} = curElement,
+      {ok, next} = curFilter(curNode, curKey)
       ;
-    if (filter(curNode, curKey)) {
+    if (ok) {
       result.push(curNode);
+    }
+    if ('function' !== typeof next) {
+      continue;
     }
     if (!curNode || 'object' !== typeof curNode) {
       continue;
@@ -20,7 +23,8 @@ export default function traverse(object, filter) {
       let key = keys[i];
       path.push({
         node: curNode[key],
-        key: key
+        key: key,
+        next: next
       });
     }
   }

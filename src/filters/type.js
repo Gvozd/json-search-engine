@@ -2,10 +2,10 @@ export default function type(typeName) {
   'use strict';
   switch (typeName) {
     case 'array':
-      return node => Array.isArray(node);
+      return node => ({ok: Array.isArray(node)});
     case 'null':
-      return node => null === node;
+      return node => ({ok: null === node});
     default:
-      return node => typeName === typeof node;
+      return node => ({ok: typeName === typeof node});
   }
 };
