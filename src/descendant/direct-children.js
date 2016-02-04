@@ -1,7 +1,7 @@
 import unionOr from '../union/or';
 export default function directChildren(parentFilter, childFilter) {
   'use strict';
-  if('function' !== typeof parentFilter || 'function' !== typeof childFilter) {
+  if ('function' !== typeof parentFilter || 'function' !== typeof childFilter) {
     return null;
   }
   return function directChildrenFilter(...args) {
