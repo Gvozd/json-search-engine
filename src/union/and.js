@@ -8,7 +8,7 @@ export default function unionAnd(...filters) {
   if (filters.length === 1) {
     return filters[0];
   }
-  return function anyLevelFilter(...args) {
+  return function unionAndFilter(...args) {
     var result = filters
       .map(func => func(...args));
     return {
