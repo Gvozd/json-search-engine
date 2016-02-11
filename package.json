@@ -5,7 +5,8 @@
   "scripts": {
     "prepublish": "npm run lint && npm run test",
     "test": "mocha ./test/**/*.js",
-    "lint": "eslint **/*.js"
+    "lint": "eslint **/*.js",
+    "bench": "cd bench && node -r babel-register -r babel-regenerator-runtime ./index.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,10 @@
   "devDependencies": {
     "babel-core": "^6.4.5",
     "babel-eslint": "^4.1.8",
+    "babel-plugin-syntax-async-functions": "^6.3.13",
+    "babel-plugin-transform-regenerator": "^6.5.0",
     "babel-preset-es2015": "^6.3.13",
+    "babel-regenerator-runtime": "^6.5.0",
     "babel-register": "^6.4.3",
     "chai": "^3.5.0",
     "eslint": "^1.10.3",
