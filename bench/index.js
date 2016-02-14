@@ -32,6 +32,6 @@ function runTask(setupModuleName, setupMethod, moduleName, method) {
       .on('message', (m) => {
         resolve(m);
       })
-      .send({count: 1000, run: [moduleName, method], setup: [setupModuleName, setupMethod]});
+      .send({count: 100, run: [moduleName, method], setup: [setupModuleName, setupMethod]});
   });
 }

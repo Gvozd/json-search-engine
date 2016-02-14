@@ -5,7 +5,7 @@ process.on('message', ({count, run: [module, method], setup: [setupModuleName, s
     result = [];
   for(let i = 0; i < 10; i++) {
     let tmpResults = [];
-    for(let j = 0; j < 10; j++) {
+    for(let j = 0; j < 20; j++) {
       tmpResults.push(run(setupFunc, func, count));
     }
     result.push(tmpResults.reduce(max));
