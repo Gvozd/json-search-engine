@@ -10,14 +10,4 @@ export default function directChildren([parentTable, needleState], {childFilterN
     parentTable,
     needleState + '.' + childState
   ];
-  //if ('function' !== typeof parentFilter || 'function' !== typeof childFilter) {
-  //  return null;
-  //}
-  //return function directChildrenFilter(...args) {
-  //  var {ok, next} = parentFilter(...args);
-  //  return {
-  //    ok: false,
-  //    next: unionOr(directChildren(next, childFilter), ok && childFilter)
-  //  };
-  //};
 };
