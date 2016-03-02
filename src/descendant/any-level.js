@@ -1,9 +1,14 @@
-export default function anyLevel(filter) {
+import {checkerFuncKey} from '../const';
+export default function anyLevel({childFilterName, childState, childFilterFunc}) {
   'use strict';
-  return function anyLevelFilter(...args) {
-    return {
-      ok: filter(...args).ok,
-      next: anyLevelFilter
-    };
+  var parentTable = {
+    [childFilterName]: {
+      [checkerFuncKey]: childFilterFunc,
+      '..': childState
+    }
   };
-};
+  return [
+    parentTable,
+    '..' + childState
+  ];
+}
