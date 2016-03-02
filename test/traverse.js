@@ -1,5 +1,8 @@
 import {expect} from 'chai';
 import traverse from '../src/traverse';
+import root from '../src/descendant/root';
+import anyLevel from '../src/descendant/any-level';
+import any from '../src/filters/any';
 import {checkerFuncKey} from '../src/const';
 
 describe('traverse', function () {
@@ -16,11 +19,11 @@ describe('traverse', function () {
       };
     });
     it('root element', function () {
-      expect(traverse(object, ...getRootTable()))
+      expect(traverse(object, ...root()))
         .deep.equal([object]);
     });
     it('any element', function () {
-      expect(traverse(object, ...getAnyTable()))
+      expect(traverse(object, ...anyLevel(any())))
         .deep.equal([object, 'foo', 'bar', object.c, 'quux']);
     });
   });
@@ -37,36 +40,12 @@ describe('traverse', function () {
     });
 
     it('root element', function () {
-      expect(traverse(object, ...getRootTable()))
+      expect(traverse(object, ...root()))
         .deep.equal([object]);
     });
     it('any element', function () {
-      expect(traverse(object, ...getAnyTable()))
+      expect(traverse(object, ...anyLevel(any())))
         .deep.equal([object, 1, 2, [3], 3]);
     });
   });
-
-  function getRootTable() {
-    return [
-      {
-        'root': {
-          [checkerFuncKey]: (node, key) => key === undefined,
-          '.': 'root'
-        }
-      },
-      '.root'
-    ];
-  }
-
-  function getAnyTable() {
-    return [
-      {
-        any: {
-          [checkerFuncKey]: ()=>true,
-          '..': 'any'
-        }
-      },
-      '..any'
-    ];
-  }
 });

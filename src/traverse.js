@@ -11,11 +11,11 @@ export default function traverse(object, table, needleState) {
 
 function subTraverse(object, parentStates, table, needleState, needle) {
   'use strict';
-  if(!object || 'object' !== typeof object) {
+  if (!object || 'object' !== typeof object) {
     return;
   }
-  for(let key in object) {
-    if(object.hasOwnProperty(key)) {
+  for (let key in object) {
+    if (object.hasOwnProperty(key)) {
       let states = [],
         node = object[key];
       check(parentStates, table, states, node, key, needleState, needle);
@@ -27,13 +27,13 @@ function subTraverse(object, parentStates, table, needleState, needle) {
 function check(parentStates, table, states, node, key, needleState, needle) {
   'use strict';
   /*eslint-disable guard-for-in */
-  for(let type in table) {
+  for (let type in table) {
     let subTable = table[type],
       checker = subTable[checkerFuncKey]
-    ;
-    if(checker(node, key)) {
-      for(var parentState in subTable) {
-        if(parentStates.indexOf(parentState) !== -1) {
+      ;
+    if (checker(node, key)) {
+      for (var parentState in subTable) {
+        if (parentStates.indexOf(parentState) !== -1) {
           states.push(parentState + subTable[parentState]);
           states.push(parentState + subTable[parentState] + '.');
           states.push(parentState + subTable[parentState] + '..');
@@ -42,13 +42,13 @@ function check(parentStates, table, states, node, key, needleState, needle) {
     }
   }
   /*eslint-enable */
-  for(let i = 0, length = parentStates.length; i < length; i++) {
+  for (let i = 0, length = parentStates.length; i < length; i++) {
     let parentState2 = parentStates[i];
-    if(/\.\.$/.test(parentState2)) {
+    if (/\.\.$/.test(parentState2)) {
       states.push(parentState2);
     }
   }
-  if(states.indexOf(needleState) !== -1) {
+  if (states.indexOf(needleState) !== -1) {
     needle.push(node);
   }
 }
