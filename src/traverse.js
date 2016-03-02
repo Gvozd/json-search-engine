@@ -27,8 +27,8 @@ function subTraverse(object, parentStates, table, needleState, needle) {
 function check(parentStates, table, states, node, key, needleState, needle) {
   'use strict';
   /*eslint-disable guard-for-in */
-  for(let i = 0, length = table.length; i < length; i++) {
-    let subTable = table[i],
+  for(let type in table) {
+    let subTable = table[type],
       checker = subTable[checkerFuncKey]
     ;
     if(checker(node, key)) {

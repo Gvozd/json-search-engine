@@ -16,11 +16,11 @@ describe('traverse', function () {
       };
     });
     it('root element', function () {
-      expect(traverse(object, getRootTable(), '.root'))
+      expect(traverse(object, ...getRootTable()))
         .deep.equal([object]);
     });
     it('any element', function () {
-      expect(traverse(object, getAnyTable(), '..any'))
+      expect(traverse(object, ...getAnyTable()))
         .deep.equal([object, 'foo', 'bar', object.c, 'quux']);
     });
   });
@@ -37,11 +37,11 @@ describe('traverse', function () {
     });
 
     it('root element', function () {
-      expect(traverse(object, getRootTable(), '.root'))
+      expect(traverse(object, ...getRootTable()))
         .deep.equal([object]);
     });
     it('any element', function () {
-      expect(traverse(object, getAnyTable(), '..any'))
+      expect(traverse(object, ...getAnyTable()))
         .deep.equal([object, 1, 2, [3], 3]);
     });
   });
@@ -49,18 +49,24 @@ describe('traverse', function () {
   function getRootTable() {
     return [
       {
-        [checkerFuncKey]: (node, key) => key === undefined,
-        '.': 'root'
-      }
+        'root': {
+          [checkerFuncKey]: (node, key) => key === undefined,
+          '.': 'root'
+        }
+      },
+      '.root'
     ];
   }
 
   function getAnyTable() {
     return [
       {
-        [checkerFuncKey]: ()=>true,
-        '..': 'any'
-      }
+        any: {
+          [checkerFuncKey]: ()=>true,
+          '..': 'any'
+        }
+      },
+      '..any'
     ];
   }
 });
