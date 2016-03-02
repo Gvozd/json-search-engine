@@ -6,7 +6,7 @@ import any from '../../src/filters/any';
 import type from '../../src/filters/type';
 import name from '../../src/filters/name';
 
-describe('union/or', function () {
+describe.skip('union/or', function () {
   'use strict';
   describe('0 filters', function () {
     it('no args', function () {

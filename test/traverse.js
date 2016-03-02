@@ -1,33 +1,66 @@
 import {expect} from 'chai';
 import traverse from '../src/traverse';
-import anyLevel from '../src/descendant/any-level';
+import {checkerFuncKey} from '../src/const';
 
 describe('traverse', function () {
   'use strict';
-  var anyFilter = anyLevel(()=>({ok: true}));
-  describe('array', function () {
-    it('plain', function () {
-      expect(traverse([1, 2, 3], anyFilter))
-        .deep.equal([[1, 2, 3], 1, 2, 3]);
-    });
-    it('deeper', function () {
-      var notArrayFilter = anyLevel((el)=>({ok: !Array.isArray(el)}));
-      expect(traverse([1, 2, [3, [4, 5], 6], 7], notArrayFilter))
-        .deep.equal([1, 2, 3, 4, 5, 6, 7]);
-    });
-  });
+  let object;
   describe('object', function () {
-    it('direct order keys', function () {
-      expect(traverse({a: 1, b: 2}, anyFilter))
-        .deep.equal([{a: 1, b: 2}, 1, 2]);
+    beforeEach(function () {
+      object = {
+        b: 'foo',
+        a: 'bar',
+        c: {
+          d: 'quux'
+        }
+      };
     });
-    it('reverse order keys', function () {
-      expect(traverse({b: 2, a: 1}, anyFilter))
-        .deep.equal([{a: 1, b: 2}, 1, 2]);
+    it('root element', function () {
+      expect(traverse(object, getRootTable(), '.root'))
+        .deep.equal([object]);
     });
-    it('with sub-objects', function () {
-      expect(traverse({a: 1, b: {c: 2}, d: 3}, anyFilter))
-        .deep.equal([{a: 1, b: {c: 2}, d: 3}, 1, {c: 2}, 2, 3]);
+    it('any element', function () {
+      expect(traverse(object, getAnyTable(), '..any'))
+        .deep.equal([object, 'foo', 'bar', object.c, 'quux']);
     });
   });
+
+  describe('array', function () {
+    beforeEach(function () {
+      object = [
+        1,
+        2,
+        [
+          3
+        ]
+      ];
+    });
+
+    it('root element', function () {
+      expect(traverse(object, getRootTable(), '.root'))
+        .deep.equal([object]);
+    });
+    it('any element', function () {
+      expect(traverse(object, getAnyTable(), '..any'))
+        .deep.equal([object, 1, 2, [3], 3]);
+    });
+  });
+
+  function getRootTable() {
+    return [
+      {
+        [checkerFuncKey]: (node, key) => key === undefined,
+        '.': 'root'
+      }
+    ];
+  }
+
+  function getAnyTable() {
+    return [
+      {
+        [checkerFuncKey]: ()=>true,
+        '..': 'any'
+      }
+    ];
+  }
 });

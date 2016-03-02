@@ -5,7 +5,7 @@ import anyLevel from '../../src/descendant/any-level';
 import any from '../../src/filters/any';
 import type from '../../src/filters/type';
 
-describe('descendant/descendants', function () {
+describe.skip('descendant/descendants', function () {
   'use strict';
   it('array', function () {
     var arrayParent = anyLevel(type('array'));

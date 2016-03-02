@@ -3,7 +3,7 @@ import traverse from '../../src/traverse';
 import anyLevel from '../../src/descendant/any-level';
 import value from '../../src/filters/value';
 
-describe('filters/value', function () {
+describe.skip('filters/value', function () {
   'use strict';
   it('number value', function () {
     expect(traverse([123, 456, '123'], anyLevel(value(123))))
