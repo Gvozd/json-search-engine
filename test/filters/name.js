@@ -1,24 +1,25 @@
 import {expect} from 'chai';
 import traverse from '../../src/traverse';
-import anyLevel from '../../src/descendant/any-level';
+import directChildren from '../../src/descendant/direct-children';
+import root from '../../src/descendant/root';
 import name from '../../src/filters/name';
 
-describe.skip('filters/name', function () {
+describe('filters/name', function () {
   'use strict';
   it('object key', function () {
-    expect(traverse({a: 123, b: 456}, anyLevel(name('a'))))
+    expect(traverse({a: 123, b: 456}, ...directChildren(root(), name('a'))))
       .deep.equal([
       123
     ]);
   });
   it('number array key', function () {
-    expect(traverse([123, 456], anyLevel(name(0))))
+    expect(traverse([123, 456], ...directChildren(root(), name(0))))
       .deep.equal([
       123
     ]);
   });
   it('string array key', function () {
-    expect(traverse([123, 456], anyLevel(name('0'))))
+    expect(traverse([123, 456], ...directChildren(root(), name('0'))))
       .deep.equal([
       123
     ]);
