@@ -35,6 +35,8 @@ function check(parentStates, table, states, node, key, needleState, needle) {
       for(var parentState in subTable) {
         if(parentStates.indexOf(parentState) !== -1) {
           states.push(parentState + subTable[parentState]);
+          states.push(parentState + subTable[parentState] + '.');
+          states.push(parentState + subTable[parentState] + '..');
         }
       }
     }

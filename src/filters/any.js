@@ -1,4 +1,8 @@
 export default function any() {
   'use strict';
-  return () => ({ok: true});
-};
+  return {
+    childFilterName: 'any',
+    childState: 'any',
+    childFilterFunc: () => true
+  };
+}
