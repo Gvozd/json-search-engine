@@ -1,5 +1,5 @@
 import {checkerFuncKey} from '../const';
-export default function () {
+export default function root() {
   'use strict';
   return [
     {
