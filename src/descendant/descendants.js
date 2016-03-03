@@ -1,11 +1,11 @@
-import {checkerFuncKey} from '../const';
-export default function descendants([parentTable, needleState], {childFilterName, childState, childFilterFunc}) {
+export default function descendants([parentTable, needleState], {childState, childFilterFunc}) {
   'use strict';
-  parentTable[childFilterName] = parentTable[childFilterName] ||
+  parentTable[childState] = parentTable[childState] ||
     {
-      [checkerFuncKey]: childFilterFunc
+      checker: childFilterFunc,
+      expectedParentStates: []
     };
-  parentTable[childFilterName][needleState + '..'] = childState;
+  parentTable[childState].expectedParentStates.push(needleState + '..');
   return [
     parentTable,
     needleState + '..' + childState

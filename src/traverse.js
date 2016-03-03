@@ -1,4 +1,3 @@
-import {checkerFuncKey} from './const';
 export default function traverse(object, table, needleState) {
   'use strict';
   var needle = [],
@@ -29,14 +28,16 @@ function check(parentStates, table, states, node, key, needleState, needle) {
   /*eslint-disable guard-for-in */
   for (let type in table) {
     let subTable = table[type],
-      checker = subTable[checkerFuncKey]
+      checker = subTable.checker,
+      expectedParentStates = subTable.expectedParentStates
       ;
     if (checker(node, key)) {
-      for (var parentState in subTable) {
+      for (let i = 0, length = expectedParentStates.length; i < length; i++) {
+        let parentState = expectedParentStates[i];
         if (parentStates.indexOf(parentState) !== -1) {
-          states.push(parentState + subTable[parentState]);
-          states.push(parentState + subTable[parentState] + '.');
-          states.push(parentState + subTable[parentState] + '..');
+          states.push(parentState + type);
+          states.push(parentState + type + '.');
+          states.push(parentState + type + '..');
         }
       }
     }

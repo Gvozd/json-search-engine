@@ -1,11 +1,10 @@
-import {checkerFuncKey} from '../const';
 export default function root() {
   'use strict';
   return [
     {
       'root': {
-        [checkerFuncKey]: (node, key) => key === undefined,
-        '.': 'root'
+        checker: (node, key) => key === undefined,
+        expectedParentStates: ['.']
       }
     },
     '.root'

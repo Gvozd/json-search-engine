@@ -1,10 +1,9 @@
-import {checkerFuncKey} from '../const';
-export default function anyLevel({childFilterName, childState, childFilterFunc}) {
+export default function anyLevel({childState, childFilterFunc}) {
   'use strict';
   var parentTable = {
-    [childFilterName]: {
-      [checkerFuncKey]: childFilterFunc,
-      '..': childState
+    [childState]: {
+      checker: childFilterFunc,
+      expectedParentStates: ['..']
     }
   };
   return [
