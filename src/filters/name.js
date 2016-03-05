@@ -1,8 +1,13 @@
 export default function name(key) {
   'use strict';
   key = String(key);
-  return {
-    childState: 'name:' + key,
-    childFilterFunc: (node, nodeKey) => key === nodeKey
-  };
+  return [
+    {
+      ['name:' + key]: {
+        checker: (node, nodeKey) => key === nodeKey,
+        expectedParentStates: ['']
+      }
+    },
+    'name:' + key
+  ];
 };

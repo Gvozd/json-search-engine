@@ -2,8 +2,14 @@ var uniqueCounter = 0;
 export default function value(val) {
   'use strict';
   uniqueCounter++;
-  return {
-    childState: 'type:' + uniqueCounter + ':' + JSON.stringify(val),
-    childFilterFunc: node => val === node
-  };
+  let type = 'type:' + uniqueCounter + ':' + JSON.stringify(val);
+  return [
+    {
+      [type]: {
+        checker: node => val === node,
+        expectedParentStates: ['']
+      }
+    },
+    type
+  ];
 };

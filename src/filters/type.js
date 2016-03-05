@@ -1,20 +1,24 @@
 export default function type(typeName) {
   'use strict';
+  let checker;
   switch (typeName) {
     case 'array':
-      return {
-        childState: 'type:' + typeName,
-        childFilterFunc: node => Array.isArray(node)
-      };
+      checker = node => Array.isArray(node);
+      break;
     case 'null':
-      return {
-        childState: 'type:' + typeName,
-        childFilterFunc: node => null === node
-      };
+      checker = node => null === node;
+      break;
     default:
-      return {
-        childState: 'type:' + typeName,
-        childFilterFunc: node => typeName === typeof node
-      };
+      checker = node => typeName === typeof node;
+      break;
   }
+  return [
+    {
+      ['type:' + typeName]: {
+        checker: checker,
+        expectedParentStates: ['']
+      }
+    },
+    'type:' + typeName
+  ];
 }

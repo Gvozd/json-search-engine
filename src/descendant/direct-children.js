@@ -1,13 +1,18 @@
-export default function directChildren([parentTable, needleState], {childState, childFilterFunc}) {
+export default function directChildren([parentTable, parentNeedleState], [childTable, childNeedleState]) {
   'use strict';
-  parentTable[childState] = parentTable[childState] ||
-    {
-      checker: childFilterFunc,
-      expectedParentStates: []
-    };
-  parentTable[childState].expectedParentStates.push(needleState + '.');
+  const appendToParent = state => parentNeedleState + '.' + state;
+  for (let type in childTable) {// eslint-disable-line guard-for-in
+    parentTable[type] = parentTable[type] || {
+        checker: childTable[type].checker,
+        expectedParentStates: []
+      };
+    parentTable[type].expectedParentStates =
+      parentTable[type].expectedParentStates.concat(
+        childTable[type].expectedParentStates.map(appendToParent)
+      );
+  }
   return [
     parentTable,
-    needleState + '.' + childState
+    parentNeedleState + '.' + childNeedleState
   ];
 };

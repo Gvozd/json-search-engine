@@ -1,13 +1,11 @@
-export default function anyLevel({childState, childFilterFunc}) {
+export default function anyLevel([table, needleState]) {
   'use strict';
-  var parentTable = {
-    [childState]: {
-      checker: childFilterFunc,
-      expectedParentStates: ['..']
-    }
-  };
+  for (let type in table) {// eslint-disable-line guard-for-in
+    table[type].expectedParentStates =
+      table[type].expectedParentStates.map(state => '..' + state);
+  }
   return [
-    parentTable,
-    '..' + childState
+    table,
+    '..' + needleState
   ];
 }
