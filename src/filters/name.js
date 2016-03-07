@@ -4,10 +4,16 @@ export default function name(key) {
   return [
     {
       ['name:' + key]: {
-        checker: (node, nodeKey) => key === nodeKey,
+        checker: checkerName,
+        checkerArgs: key,
         expectedParentStates: ['']
       }
     },
     'name:' + key
   ];
 };
+
+function checkerName(node, key) {
+  'use strict';
+  return this.checkerArgs === key;
+}

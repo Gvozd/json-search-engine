@@ -3,7 +3,7 @@ export default function traverse(object, table, needleState) {
   var needle = [],
     rootStates = []
     ;
-  check(['.', '..'], table, rootStates, object, undefined, needleState, needle);
+  check(['.', '..', ''], table, rootStates, object, undefined, needleState, needle);
   subTraverse(object, rootStates, table, needleState, needle);
   return needle;
 };
@@ -28,10 +28,9 @@ function check(parentStates, table, states, node, key, needleState, needle) {
   /*eslint-disable guard-for-in */
   for (let type in table) {
     let subTable = table[type],
-      checker = subTable.checker,
       expectedParentStates = subTable.expectedParentStates
       ;
-    if (checker(node, key)) {
+    if (subTable.checker(node, key)) {
       for (let i = 0, length = expectedParentStates.length; i < length; i++) {
         let parentState = expectedParentStates[i];
         if (parentStates.indexOf(parentState) !== -1) {
@@ -49,6 +48,7 @@ function check(parentStates, table, states, node, key, needleState, needle) {
       states.push(parentState2);
     }
   }
+  states.push('');
   if (states.indexOf(needleState) !== -1) {
     needle.push(node);
   }

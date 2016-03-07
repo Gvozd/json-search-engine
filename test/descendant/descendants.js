@@ -1,15 +1,14 @@
 import {expect} from 'chai';
 import traverse from '../../src/traverse';
 import descendants from '../../src/descendant/descendants';
-import anyLevel from '../../src/descendant/any-level';
-import root from '../../src/descendant/root';
+import root from '../../src/filters/root';
 import any from '../../src/filters/any';
 import type from '../../src/filters/type';
 
 describe('descendant/descendants', function () {
   'use strict';
   it('array', function () {
-    var arrayParent = anyLevel(type('array'));
+    var arrayParent = type('array');
     expect(traverse(['foo', 123, {a: 'bar', b: 456}], ...descendants(root(), type('string'))))
       .deep.equal([
       'foo',

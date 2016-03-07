@@ -4,6 +4,7 @@ export default function directChildren([parentTable, parentNeedleState], [childT
   for (let type in childTable) {// eslint-disable-line guard-for-in
     parentTable[type] = parentTable[type] || {
         checker: childTable[type].checker,
+        checkerArgs: childTable[type].checkerArgs,
         expectedParentStates: []
       };
     parentTable[type].expectedParentStates =

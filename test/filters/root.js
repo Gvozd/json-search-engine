@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import traverse from '../../src/traverse';
-import root from '../../src/descendant/root';
+import root from '../../src/filters/root';
 
 describe('descendant/root', function () {
   'use strict';

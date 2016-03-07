@@ -1,8 +1,7 @@
 import {expect} from 'chai';
 import traverse from '../../src/traverse';
-import anyLevel from '../../src/descendant/any-level';
 import directChildren from '../../src/descendant/direct-children';
-import root from '../../src/descendant/root';
+import root from '../../src/filters/root';
 import any from '../../src/filters/any';
 
 describe('filters/any', function () {
@@ -10,7 +9,7 @@ describe('filters/any', function () {
   it('array', function () {
     var func = function () {
     };
-    expect(traverse(['foo', 123, NaN, undefined, null, {}, func], ...anyLevel(any())))
+    expect(traverse(['foo', 123, NaN, undefined, null, {}, func], ...any()))
       .deep.equal([
       ['foo', 123, NaN, undefined, null, {}, func],
       'foo', 123, NaN, undefined, null, {}, func

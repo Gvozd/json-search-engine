@@ -3,10 +3,14 @@ export default function any() {
   return [
     {
       'any': {
-        checker: () => true,
+        checker: checkerAny,
         expectedParentStates: ['']
       }
     },
     'any'
   ];
+}
+function checkerAny() {
+  'use strict';
+  return true;
 }

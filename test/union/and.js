@@ -1,7 +1,6 @@
 import {expect} from 'chai';
 import traverse from '../../src/traverse';
 import unionAnd from '../../src/union/and';
-import anyLevel from '../../src/descendant/any-level';
 import any from '../../src/filters/any';
 import type from '../../src/filters/type';
 import name from '../../src/filters/name';
@@ -19,17 +18,17 @@ describe.skip('union/and', function () {
     });
   });
   it('1 filter', function () {
-    expect(traverse(['foo', 123], unionAnd(anyLevel(any()))))
+    expect(traverse(['foo', 123], unionAnd(any())))
       .deep.equal([['foo', 123], 'foo', 123]);
-    expect(traverse(['foo', 123], unionAnd(anyLevel(type('string')))))
+    expect(traverse(['foo', 123], unionAnd(type('string'))))
       .deep.equal(['foo']);
   });
   it('2 filters', function () {
-    expect(traverse(['foo', 123], unionAnd(anyLevel(any()), anyLevel(type('string')))))
+    expect(traverse(['foo', 123], unionAnd(any(), type('string'))))
       .deep.equal(['foo']);
-    expect(traverse(['foo', 123], unionAnd(anyLevel(type('string')), anyLevel(type('string')))))
+    expect(traverse(['foo', 123], unionAnd(type('string'), type('string'))))
       .deep.equal(['foo']);
-    expect(traverse(['foo', 123], unionAnd(anyLevel(any()), anyLevel(name('0')))))
+    expect(traverse(['foo', 123], unionAnd(any(), name('0'))))
       .deep.equal(['foo']);
   });
 });

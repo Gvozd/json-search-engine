@@ -1,15 +1,24 @@
-var uniqueCounter = 0;
 export default function value(val) {
   'use strict';
-  uniqueCounter++;
-  let type = 'type:' + uniqueCounter + ':' + JSON.stringify(val);
+  const type = typeof val;
+  if (val && 'object' === type ||
+    'function' === type ||
+    'symbol' === type) {
+    throw new Error('tmp deprecated');
+  }
+  const typeName = String(JSON.stringify(val));
   return [
     {
-      [type]: {
-        checker: node => val === node,
+      [typeName]: {
+        checker: checkerValue,
+        checkerArgs: val,
         expectedParentStates: ['']
       }
     },
-    type
+    typeName
   ];
 };
+function checkerValue(node) {
+  'use strict';
+  return this.checkerArgs === node;
+}
